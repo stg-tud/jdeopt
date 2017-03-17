@@ -30,25 +30,20 @@ This repository contains all available artifacts for the paper and links to the 
 These files are made available for academic purposes only. 
 Do not redistribute these files. Do not distribute direct links to these files, link to this page instead.
 
-<h3>Content</h3>
+<h3>Contents</h3>
 
-* Java application that searches class files for calls, conditionals, and throw-statements (Location: "Locating shortcuts/SecurityCheckFinder")
-* List of candidate methods (Location: "Locating shortcuts/methods.html")
-* Modified source code (Location: "Removing shortcuts/modified")
+* Java application that searches class files for calls, conditionals, and throw-statements (Location: [Locating shortcuts/SecurityCheckFinder](../master/Locating shortcuts/SecurityCheckFinder))
+* List of candidate methods (Location: [Locating shortcuts/methods.html](../master/Locating shortcuts/methods.html))
+* Modified source code (Location: [Removing shortcuts/modified](../master/Removing shortcuts/modified))
 * Instrumentation tool (Location: [Instrumentation](../master/Instrumentation))
-* Micro benchmarking tool (Location: "Performance evaluation/PerformanceTest")
-* Custom callback class for DaCapo (Location: "Performance evaluation/Callback")
-* Results of DaCapo benchmark runs (Location: "Performance evaluation/Results")
-* Java application that counts method calls (Location: "Call statistics/CallCounter")
-* Results of counting method calls (Location: "Call statistics/Results/callcounts.pdf")
+* Micro benchmarking tool (Location: [Performance evaluation/PerformanceTest](../master/Performance evaluation/PerformanceTest))
+* Custom callback class for DaCapo (Location: [Performance evaluation/Callback](../master/Performance evaluation/Callback))
+* Results of DaCapo benchmark runs (Location: [Performance evaluation/Results](../master/Performance evaluation/Results))
+* Java application that counts method calls (Location: [Call statistics/CallCounter](../master/Call statistics/CallCounter))
+* Results of counting method calls (Location: [Call statistics/Results/callcounts.pdf](../master/Call statistics/Results/callcounts.pdf))
 
 
-
-
-
-
-
-## Steps for reproduction
+## Steps for Reproduction
 
 ### 0 Setup
 
