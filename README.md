@@ -61,19 +61,21 @@ Results of counting method calls (Location: "Call statistics/Results/callcounts.
 Download [openjdk-8-src-b132-03_mar_2014.zip](http://download.java.net/openjdk/jdk8/).
 
 Setup two identical build environments for OpenJDK. 
-One of the two builds serves as the unmodified reference implementation, the other one we use for modifications\n On our machine, we used "C:\OpenJDK\openjdk" for the original code, and "C:\OpenJDK\openjdkmod" for the other one.
+One of the two builds serves as the unmodified reference implementation, the other one we use for modifications\n On our machine, we used 
+`C:\OpenJDK\openjdk` for the original code, and `C:\OpenJDK\openjdkmod` for the other one.
 
-Build the two copies of OpenJDK (run configure and "make all" for each of the two). 
+Build the two copies of OpenJDK (run configure and `make all` for each of the two). 
 In the following, we will refer to the build output directories as BUILDPATH, and MODBUILDPATH, respectively. 
-On our machine, the paths are "C:\OpenJDK\openjdk\build\windows-x86_64-normal-server-release" and "C:\OpenJDK\openjdkmod\build\windows-x86_64-normal-server-release".
+On our machine, the paths are `C:\OpenJDK\openjdk\build\windows-x86_64-normal-server-release` and `C:\OpenJDK\openjdkmod\build\windows-x86_64-normal-server-release`.
 
 
 ### 1 Locating shortcuts
 
-Extract BUILDPATH\images\j2re-image\lib\rt.jar to a folder of your choice. We will refer to this folder as RTPATH.
+Extract `BUILDPATH\images\j2re-image\lib\rt.jar` to a folder of your choice. We will refer to this folder as `RTPATH`.
 Build SecurityCheckFinder.
-Run SecurityCheckFinder by providing RTPATH as command line argument and store its output. In the configuration we provided for SecurityCheckFinder, it will simply read all .class files in RTPATH and search them for method calls, conditionals, and throw-statements. Its output contains all findings in an XML structure.
-Search XML structure for calls to sun.reflect.Reflection.getCallerClass and java.lang.SecurityManager.getClassContext to get a list of candidate methods that may or may not contain a shortcut. We used the following XQuery:
+Run SecurityCheckFinder by providing `RTPATH` as command line argument and store its output. In the configuration we provided for SecurityCheckFinder, it will simply read all .class files in `RTPATH` and search them for method calls, conditionals, and throw-statements. Its output contains all findings in an XML structure.
+Search XML structure for calls to `sun.reflect.Reflection.getCallerClass` and `java.lang.SecurityManager.getClassContext` to get a list of candidate methods that may or may not contain a shortcut. 
+We used the following XQuery:
 
 ```
 let $calls := for $i in entries/call
@@ -93,55 +95,56 @@ return <html><body><table>{$candidates}</table></body></html>
 
 The list of candidate methods comprises 86 methods, we provide a full list in methods.html.
 Manually review the 86 candidate methods to identify those methods that contain a shortcut. 
-A candidate method contains a shortcut if it contains a permission check (i.e., a call to SecurityManager.check*) that is guarded by a conditional that involves information about the caller/callstack. 
+A candidate method contains a shortcut if it contains a permission check (i.e., a call to `SecurityManager.check*`) that is guarded by a conditional that involves information about the caller/callstack. 
 We marked such methods in the list of candidates in methods.html.
 
 
 ### 2 Removing shortcuts
 
-Replace the relevant source files under "jdk\src\share\classes" (on our machine, the absolute path was "C:\OpenJDK\openjdkmod\jdk\src\share\classes") with the modified code we provide under "Removing shortcuts/modified".
-Rebuild the modified OpenJDK by running "make all".
+Replace the relevant source files under `jdk\src\share\classes` (on our machine, the absolute path was `C:\OpenJDK\openjdkmod\jdk\src\share\classes`) with the modified code we provide under `Removing shortcuts/modified`.
+Rebuild the modified OpenJDK by running `make all`.
 
 
 ### 3 Instrumentation
 
 Build instrumentation tool.
-Extract MODBUILDPATH\images\j2sdk-image\jre\lib\rt.jar to a folder of your choice. We will refer to this folder as INPUTPATH.
-Run instrumentation tool by providing INPUTPATH as a first command line argument, and another path to an empty output folder as a second argument. The instrumentation tool will read in all class files contained in INPUTPATH, modify callers as necessary, and store processed class files in the output folder.
-Replace the class files in MODBUILDPATH\images\j2sdk-image\jre\lib\rt.jar with the modified ones in the output folder.
+Extract `MODBUILDPATH\images\j2sdk-image\jre\lib\rt.jar` to a folder of your choice. 
+We will refer to this folder as `INPUTPATH`.
+Run instrumentation tool by providing `INPUTPATH` as a first command line argument, and another path to an empty output folder as a second argument. The instrumentation tool will read in all class files contained in `INPUTPATH`, modify callers as necessary, and store processed class files in the output folder.
+Replace the class files in `MODBUILDPATH\images\j2sdk-image\jre\lib\rt.jar` with the modified ones in the output folder.
 
 
 ### 4 Performance evaluation
+
 Perform micro benchmark:
 
 Build PerformanceTest, it contains a test class TestCollection that will be used for micro benchmarking. 
 You can configure the number of iterations per run and whether a security manager is to be set or not using the constants in TestCollection.
-Run TestCollection as a JUnit test to perform micro benchmark, make sure you run the test with the JRE whose performance you would like to measure. On our machine, the modified JRE was located in folder C:\OpenJDK\openjdkmod\build\windows-x86_64-normal-server-release\images\j2sdk-image\jre.
+Run TestCollection as a JUnit test to perform micro benchmark, make sure you run the test with the JRE whose performance you would like to measure. On our machine, the modified JRE was located in folder `C:\OpenJDK\openjdkmod\build\windows-x86_64-normal-server-release\images\j2sdk-image\jre`.
 
 
 Run DaCapo benchmarks:
 
 Build CustomCallback.
-Download DaCapo benchmark suite in version 9.12-bach (<a href="http://sourceforge.net/project/showfiles.php?group_id=172498">http://sourceforge.net/project/showfiles.php?group_id=172498</a>).
-Run DaCapo using command line "java -Xcomp -XX:CompileThreshold=1 -server -Xmx2g -Xms2g -Xbatch -cp ".;./mathlib.jar;./dacapo.jar" Harness -t 1 -c callback benchmarkname".
+Download [DaCapo benchmark suite in version 9.12-bach](http://sourceforge.net/project/showfiles.php?group_id=172498).
+Run DaCapo using command line `java -Xcomp -XX:CompileThreshold=1 -server -Xmx2g -Xms2g -Xbatch -cp ".;./mathlib.jar;./dacapo.jar" Harness -t 1 -c callback benchmarkname`.
 
-"java" should point to the java binary of the JRE whose performance you would like to measure.
-"mathlib.jar" should point to the Apache Commons Math library, which is a dependency of CustomCallback.
-"callback" should point to compiled CustomCallback.
-"benchmarkname" should be the name of the DaCapo benchmark whose performance you would like to measure, e.g., avrora.
-When running jython benchmark, make sure to not use -Xcomp due to a known bug (<a href="http://sourceforge.net/p/dacapobench/bugs/80/">http://sourceforge.net/p/dacapobench/bugs/80/</a>).
+`java` should point to the java binary of the JRE whose performance you would like to measure.
+`mathlib.jar` should point to the Apache Commons Math library, which is a dependency of CustomCallback.
+`callback` should point to compiled CustomCallback.
+`benchmarkname` should be the name of the DaCapo benchmark whose performance you would like to measure, e.g., avrora.
+When running jython benchmark, make sure to not use -Xcomp due to a [known bug](http://sourceforge.net/p/dacapobench/bugs/80/).
 
-The results of our DaCapo benchmark runs can be found in "Performance evaluation/Results".
-
+The results of our DaCapo benchmark runs can be found in `Performance evaluation/Results`.
 
 
 ### 5 Call statistics
 
 Build CallCounter.
 Run CallCounter with the JRE that you want to use for counting method calls to methods that were modified in the previous steps. 
-It will instrument all system classes that contain a modified method and store the instrumented classes as .class files in folder "output". 
+It will instrument all system classes that contain a modified method and store the instrumented classes as .class files in folder `output`. 
 Besides these modified system classes, it will also store helper classes in the same folder.
-Run the DaCapo benchmarks with the class files in the "output" directory on the bootclasspath. For this, we used the following script:
+Run the DaCapo benchmarks with the class files in the `output` directory on the bootclasspath. For this, we used the following script:
 
 ```
 set javapath=C:\OpenJDK\openjdk\build\windows-x86_64-normal-server-release\images\j2sdk-image\jre\bin\java
