@@ -1,4 +1,4 @@
-# No more Shortcuts: Towards Faithful and Efficient Access Control in Java
+# Hardening Java’s Access Control by Abolishing Implicit Privilege Elevation
 
 ## Authors 
 
