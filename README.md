@@ -42,8 +42,9 @@ Do not redistribute these files. Do not distribute direct links to these files, 
 <a href="artifacts/Call statistics/CallCounter">CallCounter</a>
 <a href="artifacts/Call statistics/Results/callcounts.pdf">callcounts.pdf</a>
 
-* [Location Shortcuts Folder](Location shortcuts/)
-* [List of candidate methods](Location shortcuts/methods.html)
+[Location Shortcuts Folder]("Location shortcuts/")
+
+[List of candidate methods]("Location shortcuts/methods.html")
 
 Java application that searches class files for calls, conditionals, and throw-statements (Location: "Locating shortcuts/SecurityCheckFinder")
 List of candidate methods (Location: "Locating shortcuts/methods.html")
@@ -54,7 +55,6 @@ Custom callback class for DaCapo (Location: "Performance evaluation/Callback")
 Results of DaCapo benchmark runs (Location: "Performance evaluation/Results")
 Java application that counts method calls (Location: "Call statistics/CallCounter")
 Results of counting method calls (Location: "Call statistics/Results/callcounts.pdf")
-
 
 ## Steps for reproduction
 
