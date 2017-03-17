@@ -32,7 +32,7 @@ Do not redistribute these files. Do not distribute direct links to these files, 
 
 <h3>Contents</h3>
 
-* Java application that searches class files for calls, conditionals, and throw-statements (Location: [Locating shortcuts/SecurityCheckFinder](../master/Locating shortcuts/SecurityCheckFinder))
+* Java application that searches class files for calls, conditionals, and throw-statements (Location: [Locating shortcuts/SecurityCheckFinder](../master/Locating%20shortcuts/SecurityCheckFinder))
 * List of candidate methods (Location: [Locating shortcuts/methods.html](../master/Locating shortcuts/methods.html))
 * Modified source code (Location: [Removing shortcuts/modified](../master/Removing shortcuts/modified))
 * Instrumentation tool (Location: [Instrumentation](../master/Instrumentation))
