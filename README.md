@@ -86,9 +86,9 @@ return $i/srcClass || "." || $i/srcMethodName || $i/srcMethodParams
 let $methods := distinct-values($methods)
 
 let $methodlist := for $method at $i in $methods
-return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{$method}&lt;/td&gt;&lt;/tr&gt;
+return <tr><td>{$i}</td><td>{$method}</td></tr>
 
-return &lt;html&gt;&lt;body&gt;&lt;table&gt;{$candidates}&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;
+return <html><body><table>{$candidates}</table></body></html>
 ```
 
 The list of candidate methods comprises 86 methods, we provide a full list in methods.html.
