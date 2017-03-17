@@ -38,9 +38,9 @@ Do not redistribute these files. Do not distribute direct links to these files, 
 
 [List of candidate methods]("Location shortcuts/methods.html")
 
-[Instrumentation](../blob/master/Instrumentation)
+[Instrumentation](../master/Instrumentation)
 
-[File in Instrumentation](../blob/master/Instrumentation/src/util/Logger.java)
+[File in Instrumentation](../master/Instrumentation/src/util/Logger.java)
 
 
 
