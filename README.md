@@ -32,15 +32,19 @@ Do not redistribute these files. Do not distribute direct links to these files, 
 
 <h3>Content</h3>
 
+* Java application that searches class files for calls, conditionals, and throw-statements (Location: "Locating shortcuts/SecurityCheckFinder")
+* List of candidate methods (Location: "Locating shortcuts/methods.html")
+* Modified source code (Location: "Removing shortcuts/modified")
+* Instrumentation tool (Location: [Instrumentation](../master/Instrumentation))
+* Micro benchmarking tool (Location: "Performance evaluation/PerformanceTest")
+* Custom callback class for DaCapo (Location: "Performance evaluation/Callback")
+* Results of DaCapo benchmark runs (Location: "Performance evaluation/Results")
+* Java application that counts method calls (Location: "Call statistics/CallCounter")
+* Results of counting method calls (Location: "Call statistics/Results/callcounts.pdf")
 
 
-[Location Shortcuts Folder]("Location shortcuts/")
 
-[List of candidate methods]("Location shortcuts/methods.html")
 
-[Instrumentation](../master/Instrumentation)
-
-[File in Instrumentation](../master/Instrumentation/src/util/Logger.java)
 
 
 
